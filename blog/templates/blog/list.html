@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jae Man's blog</title>
+    </head>
+    <body>
+        <div>
+            <h1><a href="/">Jae Man's Blog</a></h1>
+        </div>
+        <p><a href="{% url 'write' %}">+ 새로운 글 작성</a></p>    
+        <table border = "1" width ="800px">
+            <tr>
+                <th>작성자</th>
+                <th>제목</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+            {% for blog in blogList %}
+            <tr align="center">
+                <td>{{ blog.writer }}</td>
+                <td><a href="detail?id={{blog.id}}">{{ blog.title }}</a></td>
+                <td>{{blog.post_date|date:"Y-m-d"}}</td>
+                <td>{{ blog.hit_count }}</td>
+            </tr>
+            {% endfor %}            
+        </table>
+    </body>
+</html>

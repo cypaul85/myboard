@@ -1,0 +1,72 @@
+{{message}}
+<html>
+<head>
+<script type="text/javascript">
+function blog_update(){
+    var writer = document.form1.writer.value;
+    var title = document.form1.title.value;
+    var content=document.form1.content.value;
+    if (writer == ""){
+        alert("이름을 입력하세요!")
+        document.form1.writer.focus();
+        return;
+    }
+    if (title == ""){
+        alert("제목을 입력하세요!")
+        document.form1.title.focus();
+        return;
+    }
+    if (content == ""){
+        alert("내용을 입력하세요!")
+        document.form1.content.focus();
+        return;
+    }
+    if(confirm("변경하시겠습니까?")){
+        document.form1.action="update";
+        document.form1.submit();
+    }
+}
+function blog_list(){
+    document.form1.action="list";
+    document.form1.submit();
+}
+function doSomething()
+{
+    alert("Do something")
+}
+function doSomethingElse()
+{
+    alert("Do something else")
+}
+</script>
+</head>
+<body>
+    <input type="button" onclick="doSomething()" value="Button One"/>
+    <input type="button" onclick="doSomethingElse()" value="Button Two"/>
+    <h2>게시물 편집</h2>
+    <form id="form1" name="form1" method="post">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <td>이름</td>
+                <td><input name="writer" size="80" value="{{dto.writer}}"></td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td><input name="title" size="80" value="{{dto.title}}"></td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td><textarea rows="5" cols="60" name="content" id="content">{{dto.content}}</textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                <input type="hidden" name="id" value="{{dto.id}}"/>
+                <input type="button" value="변경" onclick="blog_update()">
+                <input type="button" value="목록" onclick="blog_list()">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

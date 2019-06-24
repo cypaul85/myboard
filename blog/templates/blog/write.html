@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+    function blog_write(){
+        var writer = document.form1.writer.value;
+        var title = document.form1.title.value;
+        var content=document.form1.content.value;
+        if (writer == ""){
+            alert("이름을 입력하세요!")
+            document.form1.writer.focus();
+            return;
+        }
+        if (title == ""){
+            alert("제목을 입력하세요!")
+            document.form1.title.focus();
+            return;
+        }
+        if (content == ""){
+            alert("내용을 입력하세요!")
+            document.form1.content.focus();
+            return;
+        }
+        document.form1.action="write";
+        document.form1.submit();
+    }
+</script>
+</head>
+<body>
+    <h2>새로운 글쓰기</h2>
+    <form id="form1" name="form1" method="post">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <td>이름</td>
+                <td><input name="writer" size="80" placeholder="이름을 입력하세요"></td>
+            </tr>
+            <tr>
+                <td>제목</td>
+                <td><input name="title" size="80" placeholder="제목을 입력하세요"></td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td><textarea name="content" rows="3" cols="80" placeholder="내용을 입력하세요"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                <input type="button" value="등록" onclick="blog_write()">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>    
+</html>

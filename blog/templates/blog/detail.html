@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+function BackToList()
+{
+    // alert("Go back to List of Blogs")
+    document.form1.action="/detail";
+    document.form1.submit();
+}
+function ModifyBlog(){
+    document.form1.action="/edit";
+    document.form1.submit();
+}
+function DeleteBlog(){
+    if(confirm("삭제하시겠습니까?")){
+        document.form1.action="/delete";
+        document.form1.submit();
+    }
+}
+</script>
+</head>
+<body>
+    <h2>Blog's Content</h2>
+    <br>
+    <table border = "1">
+        <tr>
+            <td>작성자</td>
+            <td>{{dto.writer}}</td> 
+        </tr>
+        <tr>
+            <td>제목</td>
+            <td>{{dto.title}}</td>
+        </tr>
+        <tr>
+            <td>내용</td>
+            <td><textarea name="content" row="30" cols="60">{{dto.content}}</textarea></td>
+        </tr>
+        <tr>
+            <td>작성일</td>
+            <td>{{dto.post_date}}</td>
+        </tr>
+        <tr>
+            <td>조회수</td>
+            <td>{{dto.hit_count}}</td>
+        </tr>
+        <td colspan="2" align="center">
+            <form id="form1" name="form1" method="POST" >
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{dto.id}}"/>
+                <input type="button" onclick="ModifyBlog()" value="편집"/>
+                <input type="button" onclick="BackToList()" value="목록"/>
+                <input type="button" onclick="DeleteBlog()" value="삭제"/>
+            </from>
+        </td>
+    </table>
+</body>
+</html>
